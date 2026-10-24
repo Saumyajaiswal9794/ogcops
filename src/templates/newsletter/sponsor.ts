@@ -1,5 +1,5 @@
 import type { TemplateDefinition } from '../types';
-import { truncate, autoFontSize, mixColors, contrastText, commonFields } from '../utils';
+import { truncate, autoFontSize, mixColors, contrastText, isLightColor, commonFields } from '../utils';
 
 const template: TemplateDefinition = {
   id: 'newsletter-sponsor',
@@ -41,6 +41,7 @@ const template: TemplateDefinition = {
     const textColor = String(params.textColor ?? '#FFFFFF');
     const labelColor = mixColors(bgColor, textColor, 0.6);
     const buttonText = contrastText(accentColor);
+    const accentInk = isLightColor(bgColor) ? mixColors(accentColor, '#000000', 0.45) : accentColor;
     const sponsorNameSize = autoFontSize(sponsorName, [
       { maxLen: 10, size: 96 },
       { maxLen: 18, size: 80 },
@@ -79,7 +80,7 @@ const template: TemplateDefinition = {
                           style: {
                             fontSize: '18px',
                             fontWeight: 600,
-                            color: accentColor,
+                            color: accentInk,
                             letterSpacing: '0.08em',
                             textTransform: 'uppercase' as const,
                           },
